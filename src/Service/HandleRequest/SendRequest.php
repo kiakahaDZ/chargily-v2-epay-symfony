@@ -1,13 +1,12 @@
 <?php
+
 namespace App\Service\HandleRequest;
 
-use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\RequestOptions;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Attribute\Route;
 
 class SendRequest
 {
@@ -91,7 +90,6 @@ class SendRequest
                     "Authorization: Bearer $this->secret_key",
                     "Content-Type: application/json"
                 ],
-                //RequestOptions::FORM_PARAMS => $payload,
                 RequestOptions::BODY => json_encode(
                     $payload
                 ),
