@@ -8,14 +8,7 @@
         "php": ">=8.1",
         "ext-ctype": "*",
         "ext-curl": "*",
-        "ext-iconv": "*",
-        "guzzlehttp/guzzle": "^7.8",
-        "symfony/console": "6.4.*",
-        "symfony/dotenv": "6.4.*",
-        "symfony/flex": "^2",
-        "symfony/framework-bundle": "6.4.*",
-        "symfony/runtime": "6.4.*",
-        "symfony/yaml": "6.4.*"
+        "ext-iconv": "*"
     },
     "config": {
         "allow-plugins": {
@@ -27,12 +20,12 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "Chargily\\V2Bundle\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "App\\Tests\\": "tests/"
+            "Chargily\\V2Bundle\\": "src/"
         }
     },
     "replace": {
