@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\HandleRequest;
+namespace Chargily\V2Bundle\HandleRequest;
 
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\RequestOptions;
