@@ -2,69 +2,69 @@
 
 namespace App\Controller;
 
-use App\Service\HandleRequest\SendRequest;
+use App\Service\HandleRequest\ChargilySendRequest;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 
 class ChargilyEpaySymfonyController extends AbstractController
 {
-    protected SendRequest $sendRequest;
+    protected ChargilySendRequest $sendRequest;
 
     /**
-     * @param SendRequest $sendRequest
+     * @param ChargilySendRequest $sendRequest
      * @required
      */
-    public function __construct(SendRequest $sendRequest)
+    public function __construct(ChargilySendRequest $sendRequest)
     {
         $this->sendRequest = $sendRequest;
     }
 
-    #[Route('/chargily/create/product', name: 'create_new_product', methods: ['POST'])]
+    #[Route('/chargily/create/product', name: 'create_new_product', methods: ['GET'])]
     public function createNewProduct()
     {
-        $payload = ["name" => "Super Product"];
+        $payload = json_encode(["name" => "Super Product"]);
         $response = $this->sendRequest->createNewProduct($payload);
-
-        $new_product = [
-            "id" => $response->id ?? null,
-            "entity" => $response->entity ?? null,
-            "livemode" => $response->livemode ?? null,
-            "name" => $response->name ?? null,
-            "description" => $response->description ?? null,
-            "images" => $response->images ?? null,
-            "metadata" => $response->metadata ?? null,
-            "created_at" => $response->created_at ?? null,
-            "updated_at" => $response->updated_at ?? null
-        ];
-        return $new_product;
+        if ($response->getStatusCode() == 200) {
+            $response = json_decode($response->getContent());
+            return new JsonResponse([
+                "id" => $response->id ?? null,
+                "entity" => $response->entity ?? null,
+                "livemode" => $response->livemode ?? null,
+                "name" => $response->name ?? null,
+                "description" => $response->description ?? null,
+                "images" => $response->images ?? null,
+                "metadata" => $response->metadata ?? null,
+                "created_at" => $response->created_at ?? null,
+                "updated_at" => $response->updated_at ?? null
+            ]);
+        } else {
+            $response = json_decode($response->getContent());
+            return new JsonResponse($response);
+        }
     }
 
-    #[Route('/chargily/create/price', name: 'create_price', methods: ['POST'])]
+    #[Route('/chargily/create/price', name: 'create_price', methods: ['GET'])]
     public function createPrice()
     {
-        $payload = ["amount" => 5000,
+        $payload = json_encode(["amount" => 5000,
             "currency" => "dzd",
-            "product_id" => "01hhyjnrdbc1xhgmd34hs1v3en"];
+            "product_id" => "01hntr60mb9sn7j9y9z2qwgfza"]);
         return $this->sendRequest->createPrice($payload);
     }
 
-    #[Route('/chargily/create/checkout', name: 'create_checkout', methods: ['POST'])]
+    #[Route('/chargily/create/checkout', name: 'create_checkout', methods: ['GET'])]
     public function createCheckout()
     {
-        $payload = ["amount" => 5000,
-            "currency" => "dzd",
-            "product_id" => "01hhyjnrdbc1xhgmd34hs1v3en"];
-        $response = $this->sendRequest->createCheckout($payload);
-        $status_code = $response->getStatusCode();
-        $response = json_decode($response->getContent());
-        if ($status_code == 200) {
-            //redirect to chargily payment gateway
-            return $this->redirect($response->response);
-        } else {
-            // This is a error message depending on issue that happen
-            dd($status_code . " " . $response->response);
-        }
+        $payload = json_encode(["items" =>
+            [[
+                "price" => "01hntrjg31kkxebqzxk37xzhp8",
+                "quantity" => 1
+            ]],
+            "success_url" => "https://your-cool-website.com/payments/success"
+        ]);
+        return $this->sendRequest->createCheckout($payload);
     }
 
     /**
