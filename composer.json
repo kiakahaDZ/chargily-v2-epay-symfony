@@ -18,16 +18,7 @@
         "symfony/yaml": "6.4.*"
     },
     "require-dev": {
-        "ext-ctype": "*",
-        "ext-curl": "*",
-        "ext-iconv": "*",
-        "guzzlehttp/guzzle": "^7.8",
-        "symfony/console": "6.4.*",
-        "symfony/dotenv": "6.4.*",
-        "symfony/flex": "^2",
-        "symfony/framework-bundle": "6.4.*",
-        "symfony/runtime": "6.4.*",
-        "symfony/yaml": "6.4.*"
+
     },
     "autoload": {
         "psr-4": {
