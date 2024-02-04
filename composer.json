@@ -17,9 +17,6 @@
         "symfony/runtime": "6.4.*",
         "symfony/yaml": "6.4.*"
     },
-    "require-dev": {
-
-    },
     "autoload": {
         "psr-4": {
             "Chargily\\V2Bundle\\": "src/"
