@@ -8,5 +8,5 @@
 /var/
 /vendor/
 /config/services.yaml
-/.idea
+/.idea/
 ###< symfony/framework-bundle ###
