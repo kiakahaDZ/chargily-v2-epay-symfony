@@ -1,9 +1,7 @@
 <?php
 
-namespace Chargily\V2Bundle\HandleRequest;
+namespace Chargily\V2Bundle\Service\HandleRequest;
 
-use GuzzleHttp\Exception\GuzzleException;
-use GuzzleHttp\RequestOptions;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
