@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Service\HandleRequest\ChargilySendRequest;
+use Chargily\V2Bundle\Service\HandleRequest\ChargilySendRequest;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -10,22 +10,12 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class ChargilyEpaySymfonyController extends AbstractController
 {
-    protected ChargilySendRequest $sendRequest;
-
-    /**
-     * @param ChargilySendRequest $sendRequest
-     * @required
-     */
-    public function __construct(ChargilySendRequest $sendRequest)
-    {
-        $this->sendRequest = $sendRequest;
-    }
 
     #[Route('/chargily/create/product', name: 'create_new_product', methods: ['GET'])]
-    public function createNewProduct()
+    public function createNewProduct(ChargilySendRequest $sendRequest)
     {
         $payload = json_encode(["name" => "Super Product"]);
-        $response = $this->sendRequest->createNewProduct($payload);
+        $response = $sendRequest->createNewProduct($payload);
         if ($response->getStatusCode() == 200) {
             $response = json_decode($response->getContent());
             return new JsonResponse([
@@ -46,16 +36,16 @@ class ChargilyEpaySymfonyController extends AbstractController
     }
 
     #[Route('/chargily/create/price', name: 'create_price', methods: ['GET'])]
-    public function createPrice()
+    public function createPrice(ChargilySendRequest $sendRequest)
     {
         $payload = json_encode(["amount" => 5000,
             "currency" => "dzd",
-            "product_id" => "01hntr60mb9sn7j9y9z2qwgfza"]);
-        return $this->sendRequest->createPrice($payload);
+            "product_id" => "01hnwn32spw57bz2b4m52rdjrh"]);
+        return $sendRequest->createPrice($payload);
     }
 
     #[Route('/chargily/create/checkout', name: 'create_checkout', methods: ['GET'])]
-    public function createCheckout()
+    public function createCheckout(ChargilySendRequest $sendRequest)
     {
         $payload = json_encode(["items" =>
             [[
@@ -64,16 +54,16 @@ class ChargilyEpaySymfonyController extends AbstractController
             ]],
             "success_url" => "https://your-cool-website.com/payments/success"
         ]);
-        return $this->sendRequest->createCheckout($payload);
+        return $sendRequest->createCheckout($payload);
     }
 
     /**
      * @Route("/chargily/webhook/checkout",name="webhook_checkout")
      * @throws \Exception
      */
-    public function webhookCheckout(Request $request)
+    public function webhookCheckout(ChargilySendRequest $sendRequest, Request $request)
     {
-        $response = $this->sendRequest->webhookCheckout($request);
+        $response = $sendRequest->webhookCheckout($request);
         return $response;
     }
 }

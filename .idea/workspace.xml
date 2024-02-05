@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="53c8368d-72fd-45f0-8e81-0002ec307c6a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/HandleRequest/ChargilySendRequest.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/HandleRequest/ChargilySendRequest.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,7 +44,7 @@
       <option name="presentableId" value="Default" />
       <updated>1706894263504</updated>
       <workItem from="1706894264926" duration="8659000" />
-      <workItem from="1707063838499" duration="7102000" />
+      <workItem from="1707063838499" duration="7653000" />
     </task>
     <servers />
   </component>
